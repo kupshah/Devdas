@@ -1,1 +1,1 @@
-web: gunicorn guru:app --log-file -
+web: gunicorn devdas:app --log-file -
