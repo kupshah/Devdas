@@ -92,7 +92,7 @@ def send_i_am_message(msg):
     for word in msg.split(" "):
         if word.istitle():
             upper_words.append(word)
-    random_position = random.randint(1,5)
+    random_position = random.randint(1,3)
     try:
         data = {
             'bot_id': os.getenv('GROUPME_BOT_ID'),
