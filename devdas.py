@@ -22,14 +22,14 @@ def webhook():
 
     # We don't want to reply to ourselves!
     #if data['name'] != 'Flappy-ISA':
-    if "flappy" in data["text"].lower() and data['name'] != "Flappy-ISA":
+    if "flappy" in data["text"].lower() and data['name'] != "Devdas":
         msg = '{}, you sent "{}".'.format(data['name'], data['text'])
         send_message(msg)
 
-    if "@everyone" in data["text"]:
+    elif "@everyone" in data["text"]:
         mention_everyone()
 
-    if data["text"] == "!random_person":
+    elif data["text"] == "!random_person":
         pick_random_person(members)
 
     return "ok", 200
