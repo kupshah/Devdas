@@ -19,25 +19,27 @@ def webhook():
 
     members = ['Suhas Narendrula', 'Anusha Bhaskarla', 'Sachin Seetharam', 'Karthik Eluri', 'Jagdeep Singh Bhinder', 'Keshav Muralitharan', 'Medha Lingawar', 'Kunaal Shah', 'Minal Patel', 'Jasmine Patel', 'Nivi the Mafi', 'Rahee Patel', 'Tulsi Patel', 'Shreya Kaza', 'Devika Davda', 'Neehar Sachdeva', 'Sid Chawla', 'Penny Bola', 'Shakshi Sambwani', 'Kiran Rajan', 'Amani Karim', 'Gazal Kathuria', 'Mahak Jain', 'Varun Alse', 'Nishant Medicharla', 'Venu Bangla', 'Vedant Chawla', 'Paloma Bhugra', 'Tesh Patel', 'Dhvani Shah']
 
-
+    rand_int = random.randint(0,5)
     # We don't want to reply to ourselves!
     #if data['name'] != 'Flappy-ISA':
     if "devdas" in data["text"].lower() and data['name'] != "Devdas":
         msg = '{}, you sent "{}".'.format(data['name'], data['text'])
         send_message("Hello " + data["name"] +"!")
 
-
     elif "@everyone" in data["text"]:
         mention_everyone()
 
-    elif data["text"] == "!random_person":
+    elif data["text"] == "!random person" or data["text"] == "!random_person":
         pick_random_person(members)
+
+    elif rand_int == 5:
+        send_i_am_message(data["text"])
 
     return "ok", 200
 
 
 def send_message(msg):
-    url  = 'https://api.groupme.com/v3/bots/post'
+    url = 'https://api.groupme.com/v3/bots/post'
 
     data = {
           'bot_id': os.getenv('GROUPME_BOT_ID'),
@@ -80,6 +82,28 @@ def pick_random_person(members):
     req = Request(url, urlencode(data).encode())
     json = urlopen(req).read().decode()
 
+
+def send_i_am_message(msg):
+    print("SJSDD")
+
+    url = 'https://api.groupme.com/v3/bots/post'
+
+    upper_words =[]
+    for word in msg.split(" "):
+        if word.istitle():
+            upper_words.append(word)
+    random_position = random.randint(1,5)
+    try:
+        data = {
+            'bot_id': os.getenv('GROUPME_BOT_ID'),
+            'text': "I am " + upper_words[random_position],
+        }
+    except:
+        print("random word position index not in range - send_i_am_message")
+
+
+    req = Request(url, urlencode(data).encode())
+    json = urlopen(req).read().decode()
 
 
 #run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
