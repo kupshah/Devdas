@@ -98,12 +98,12 @@ def send_i_am_message(msg):
             'bot_id': os.getenv('GROUPME_BOT_ID'),
             'text': "I am " + upper_words[random_position],
         }
+
+        req = Request(url, urlencode(data).encode())
+        json = urlopen(req).read().decode()
     except:
         print("random word position index not in range - send_i_am_message")
 
-
-    req = Request(url, urlencode(data).encode())
-    json = urlopen(req).read().decode()
 
 
 #run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
