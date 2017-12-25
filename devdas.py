@@ -12,6 +12,8 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
     data = request.get_json()
+    nltk.download('stopwords')
+    nltk.download('punkt')
     member_ids = ['236636135', '236636136', '236636137', '236636138', '236636139', '236636140', '236636141',
                   '236636142', '236636143', '236636144', '236636145', '236636146', '236636147', '236636148',
                   '236636149', '236636150', '236636151', '236636152', '236636153', '236636154', '236636155',
@@ -38,7 +40,7 @@ def webhook():
 
     # Devdas occasionally sends an "I am {noun}." message - meme
     # elif rand_int == 5:
-    elif "I am " in data["text"]:
+    elif "I am " in data["text"] and data["name"] != "Devdas":
         send_i_am_message(data["text"])
 
     return "ok", 200
