@@ -37,7 +37,8 @@ def webhook():
         pick_random_person(members)
 
     # Devdas occasionally sends an "I am {noun}." message - meme
-    elif rand_int == 5:
+    # elif rand_int == 5:
+    elif "I am " in data["text"]:
         send_i_am_message(data["text"])
 
     return "ok", 200
