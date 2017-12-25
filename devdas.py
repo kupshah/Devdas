@@ -12,6 +12,7 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
     data = request.get_json()
+    nltk.dowload()
     nltk.download('stopwords')
     nltk.download('punkt')
     member_ids = ['236636135', '236636136', '236636137', '236636138', '236636139', '236636140', '236636141',
